@@ -11,6 +11,7 @@ namespace Xbiz_Task.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     
     public partial class Emp_Details
@@ -20,18 +21,17 @@ namespace Xbiz_Task.Models
         {
             this.Tbl_Emp = new HashSet<Tbl_Emp>();
         }
-    
+
         public int Employee_id { get; set; }
 
-		
-		public string Employee_Name { get; set; }
+        public string Employee_Name { get; set; }
         public string Employee_State { get; set; }
         public string Employee_City { get; set; }
 
-		public string Employee_Contact { get; set; }
+        public string Employee_Contact { get; set; }
         public string Employee_Hobbies { get; set; }
         public string Employee_Resume { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_Emp> Tbl_Emp { get; set; }
     }

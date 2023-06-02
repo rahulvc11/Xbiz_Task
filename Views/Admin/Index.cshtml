@@ -1,4 +1,4 @@
-﻿@model Xbiz_Task.Models.Emp_Details
+﻿@model Xbiz_Task.Models.EmployeeModel
 @{
     Layout = null;
 }
@@ -9,23 +9,30 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <style>
+        .warning{
+            color:red;
+        }
+    </style>
 </head>
 <body>
 
     <div>
-        <h4>Personal Detail</h4>
+        <h4>Personal Detail</h4> 
 
         @using (Html.BeginForm("Index", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
            
+            @Html.AntiForgeryToken()
     <table>
        
         <tr>
             <th>Name :</th>
             <td>
                 @Html.TextBoxFor(e => e.Employee_Name, new { @class = "form-control" })
-
+             
             </td>
+            <td> <lable class="warning">@Html.ValidationMessageFor(e => e.Employee_Name)</lable></td>
             
         </tr>
         <tr>
@@ -60,18 +67,17 @@
         </tr>
         <tr>
             <th>Hobbies :</th>
+            
             <td>
-                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Learning")Learning
+                @for (int i = 0; i < Model.hobbies.Count; i++)
+                {
+                    @Html.CheckBoxFor(e => Model.hobbies[i].isSelected)@Model.hobbies[i].hobby_name
+                    @Html.HiddenFor(e => Model.hobbies[i].hobby_name)
+                    @Html.HiddenFor(e => Model.hobbies[i].isSelected)
+                    <br/>
 
-                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Writing")Writing
+                }
 
-                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Dance")Dance
-
-                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Photography")Photography
-
-                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Acting")Acting
-
-                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Codeing")Codeing
             </td>
         </tr>
         <tr>
