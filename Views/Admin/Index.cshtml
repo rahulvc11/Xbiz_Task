@@ -1,0 +1,96 @@
+﻿@model Xbiz_Task.Models.Emp_Details
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+    <div>
+        <h4>Personal Detail</h4>
+
+        @using (Html.BeginForm("Index", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+           
+    <table>
+       
+        <tr>
+            <th>Name :</th>
+            <td>
+                @Html.TextBoxFor(e => e.Employee_Name, new { @class = "form-control" })
+
+            </td>
+            
+        </tr>
+        <tr>
+            <th>State :</th>
+            <td>
+                @Html.DropDownListFor(e => e.Employee_State, new List<SelectListItem>
+                   {
+                              new SelectListItem{Text="Maharashtra" , Value="Maharashtra"},
+                              new SelectListItem{Text="Delhi" , Value="Delhi"},
+                              new SelectListItem{Text="Gujrat" , Value="Gujrat"},
+                              new SelectListItem{Text="UP" , Value="UP"}
+                  }, "Select State.")
+            </td>
+        </tr>
+        <tr>
+            <th>City :</th>
+            <td>
+                @Html.DropDownListFor(e => e.Employee_City, new List<SelectListItem>
+                   {
+                              new SelectListItem{Text="Mumbai" , Value="Mumbai"},
+                              new SelectListItem{Text="Delhi" , Value="Delhi"},
+                              new SelectListItem{Text="Surat" , Value="Surat"},
+                              new SelectListItem{Text="Ayodya" , Value="Ayodya"}
+                  }, "Select City.")
+            </td>
+        </tr>
+        <tr>
+            <th>Contact : </th>
+            <td>
+                @Html.TextBoxFor(e => e.Employee_Contact, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <th>Hobbies :</th>
+            <td>
+                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Learning")Learning
+
+                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Writing")Writing
+
+                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Dance")Dance
+
+                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Photography")Photography
+
+                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Acting")Acting
+
+                @Html.RadioButtonFor(e => e.Employee_Hobbies, "Codeing")Codeing
+            </td>
+        </tr>
+        <tr>
+            <th>Resume :</th>
+            <td>
+                <input type="file" name="file" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Submit" />
+            </td>
+        </tr>
+    </table>
+
+        }
+
+
+
+    </div>
+</body>
+</html>

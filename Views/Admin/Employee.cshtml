@@ -1,0 +1,80 @@
+﻿@model Xbiz_Task.Models.Tbl_Emp
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Employee</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        <table>
+            <tr>
+                <th>Employee ID</th>
+                <td>
+                    @Html.DropDownListFor(E => E.Employee_id, ViewBag.Employee as List<SelectListItem>, "Select Employee", new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <th>Date Of Join</th>
+                <td>
+                    @Html.TextBoxFor(e => e.Employee_DOJ)
+                  
+                </td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>
+                    @Html.TextAreaFor(e => e.Employee_Designation)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    }
+
+
+    <hr />
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Contact</th>
+                <th>Hobbies</th>
+                <th>Joining Date</th>
+                <th>Designation</th>
+                <th>Resume</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in ViewBag.EmpData)
+            {
+                <tr>
+                    <td>@d.Employee_id</td>
+                    <td>@d.Emp_Details.Employee_Name</td>
+                    <td>@d.Emp_Details.Employee_State</td>
+                    <td>@d.Emp_Details.Employee_City</td>
+                    <td>@d.Emp_Details.Employee_Contact</td>
+                    <td>@d.Emp_Details.Employee_Hobbies</td>
+                    <td>@d.Employee_DOJ</td>
+                    <td>@d.Employee_Designation</td>
+                    <td>
+                        <a href="~/FileResume/@d.Emp_Details.Employee_Resume">@d.Emp_Details.Employee_Resume</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

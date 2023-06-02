@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="assignmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Emp_Details">
+          <Key>
+            <PropertyRef Name="Employee_id" />
+          </Key>
+          <Property Name="Employee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Employee_State" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Employee_City" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Employee_Contact" Type="varchar" MaxLength="20" />
+          <Property Name="Employee_Hobbies" Type="varchar(max)" />
+          <Property Name="Employee_Resume" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Emp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_id" Type="int" />
+          <Property Name="Employee_DOJ" Type="date" />
+          <Property Name="Employee_Designation" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="fk01">
+          <End Role="Emp_Details" Type="Self.Emp_Details" Multiplicity="0..1" />
+          <End Role="Tbl_Emp" Type="Self.Tbl_Emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emp_Details">
+              <PropertyRef Name="Employee_id" />
+            </Principal>
+            <Dependent Role="Tbl_Emp">
+              <PropertyRef Name="Employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="assignmentModelStoreContainer">
+          <EntitySet Name="Emp_Details" EntityType="Self.Emp_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Emp" EntityType="Self.Tbl_Emp" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk01" Association="Self.fk01">
+            <End Role="Emp_Details" EntitySet="Emp_Details" />
+            <End Role="Tbl_Emp" EntitySet="Tbl_Emp" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="assignmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Emp_Details">
+          <Key>
+            <PropertyRef Name="Employee_id" />
+          </Key>
+          <Property Name="Employee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Employee_State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Employee_City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Employee_Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_Hobbies" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_Resume" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_Emp" Relationship="Self.fk01" FromRole="Emp_Details" ToRole="Tbl_Emp" />
+        </EntityType>
+        <EntityType Name="Tbl_Emp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_id" Type="Int32" />
+          <Property Name="Employee_DOJ" Type="DateTime" Precision="0" />
+          <Property Name="Employee_Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Emp_Details" Relationship="Self.fk01" FromRole="Tbl_Emp" ToRole="Emp_Details" />
+        </EntityType>
+        <Association Name="fk01">
+          <End Role="Emp_Details" Type="Self.Emp_Details" Multiplicity="0..1" />
+          <End Role="Tbl_Emp" Type="Self.Tbl_Emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emp_Details">
+              <PropertyRef Name="Employee_id" />
+            </Principal>
+            <Dependent Role="Tbl_Emp">
+              <PropertyRef Name="Employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="assignmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Emp_Details" EntityType="Self.Emp_Details" />
+          <EntitySet Name="Tbl_Emp" EntityType="Self.Tbl_Emp" />
+          <AssociationSet Name="fk01" Association="Self.fk01">
+            <End Role="Emp_Details" EntitySet="Emp_Details" />
+            <End Role="Tbl_Emp" EntitySet="Tbl_Emp" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="assignmentModelStoreContainer" CdmEntityContainer="assignmentEntities">
+          <EntitySetMapping Name="Emp_Details">
+            <EntityTypeMapping TypeName="assignmentModel.Emp_Details">
+              <MappingFragment StoreEntitySet="Emp_Details">
+                <ScalarProperty Name="Employee_id" ColumnName="Employee_id" />
+                <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+                <ScalarProperty Name="Employee_State" ColumnName="Employee_State" />
+                <ScalarProperty Name="Employee_City" ColumnName="Employee_City" />
+                <ScalarProperty Name="Employee_Contact" ColumnName="Employee_Contact" />
+                <ScalarProperty Name="Employee_Hobbies" ColumnName="Employee_Hobbies" />
+                <ScalarProperty Name="Employee_Resume" ColumnName="Employee_Resume" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Emp">
+            <EntityTypeMapping TypeName="assignmentModel.Tbl_Emp">
+              <MappingFragment StoreEntitySet="Tbl_Emp">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Employee_id" ColumnName="Employee_id" />
+                <ScalarProperty Name="Employee_DOJ" ColumnName="Employee_DOJ" />
+                <ScalarProperty Name="Employee_Designation" ColumnName="Employee_Designation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
